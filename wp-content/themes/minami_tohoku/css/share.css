@@ -600,7 +600,7 @@ ul.small_slider { display: none !important; }
   z-index: 1;
   pointer-events: none;
 }
-  border-radius: 40% 60% 40% 70% / 50% 40% 60% 50%; overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  border-radius: 40% 60% 40% 70% / 50% 40% 60% 50%; overflow: hidden;
 }
 #aboutus_block.index div .text {
   width: max-content;
@@ -716,7 +716,7 @@ ul.small_slider { display: none !important; }
   -webkit-border-radius: 40px 2px 40px 2px;
   -moz-border-radius: 40px 2px 40px 2px;
   border-radius: 40px 2px 40px 2px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
   position: relative;
 }
 #worksList.frontpage > li > .image img { display: block; width: 100%; }
@@ -755,7 +755,7 @@ ul.small_slider { display: none !important; }
   -webkit-border-radius: 40px 2px 40px 2px;
   -moz-border-radius: 40px 2px 40px 2px;
   border-radius: 40px 2px 40px 2px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
 }
 #recruit_block.index > div > div .images ul li:first-child { margin-right: 48px; }
 #recruit_block.index > div > div .images ul li:last-child { margin-top: 80px; }
@@ -823,7 +823,7 @@ ul.small_slider { display: none !important; }
   -webkit-border-radius: 40px 2px 40px 2px;
   -moz-border-radius: 40px 2px 40px 2px;
   border-radius: 40px 2px 40px 2px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
 }
 .aboutus.first-block .text {
   justify-content: space-between;
@@ -876,7 +876,7 @@ ul.small_slider { display: none !important; }
   border-radius: 40px 2px 40px 2px;
   position: relative;
   z-index: 10;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
   transition: width .3s ease, height .3s ease;
 }
 #worksList.archive > li .cover.responsible .image .trim {
@@ -885,6 +885,7 @@ ul.small_slider { display: none !important; }
   min-height: 360px;
 }
 #worksList.archive > li .cover .image img {
+  height: 100%; object-fit: cover;
   display: block;
   width: 100%;
   position: absolute;
@@ -1112,14 +1113,14 @@ ul.small_slider { display: none !important; }
 .single #main-article.news .image_block .large_image {
   width: fit-content;
   margin: 0 auto 24px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
   transition: width .3s ease, height .3s ease;
 }
 .single #main-article.news .image_block .selector ul { /*gap: 24px;*/gap: 12px; flex-wrap: wrap; }
 .single #main-article.news .image_block .selector ul li.small_img {
   border: 3px solid transparent;
   box-sizing: border-box;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
   transition: border .5s ease;
 }
 @media (min-width: 800px) {
@@ -1195,7 +1196,7 @@ ul.small_slider { display: none !important; }
   -webkit-border-radius: 40px 2px 40px 2px;
   -moz-border-radius: 40px 2px 40px 2px;
   border-radius: 40px 2px 40px 2px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
 }
 @media (max-width: 680px) {
   .recruit.first-block > .image { width: 100%; }
@@ -1234,7 +1235,7 @@ ul.small_slider { display: none !important; }
   -webkit-border-radius: 40px 2px 40px 2px;
   -moz-border-radius: 40px 2px 40px 2px;
   border-radius: 40px 2px 40px 2px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
 }
 @media (max-width: 960.9px) {
   #interviewList > li .image { width: max-content; max-width: 100%; margin: 0 auto; }
@@ -1405,7 +1406,7 @@ ul.small_slider { display: none !important; }
   margin-bottom: 24px;
   width: 100%;
   height: 400px;
-  overflow: hidden; width: 100%; height: auto; object-fit: cover;
+  overflow: hidden;
 }
 #main-article.overview .googlemap iframe { width: 100%; height: inherit; }
 #main-article.overview .access_info { line-height: 1.8; }
@@ -1525,7 +1526,7 @@ dl dt p, dl.ContactList dd p {
     max-width: 200px;
     padding: 12px 0;
     font-size: 1.4rem !important;
-    overflow: hidden; width: 100%; height: auto; object-fit: cover;
+    overflow: hidden;
   }
   .PrivacyFrame { padding: 8%; }
   .PrivacyFrame p { font-size: 1.4rem; }
