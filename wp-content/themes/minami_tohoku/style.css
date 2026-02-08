@@ -1,0 +1,70 @@
+/*
+  Theme Name: 南東北事業本部さま テンプレート
+  Theme URL: https://tohoku.jwcc.coop/
+  Author: 東京三多摩山梨事業本部 合縁奇縁
+*/
+* {
+	margin: 0px;
+	padding: 0px;
+	zoom: 1;
+  line-height: 1.4;
+}
+html {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	font-size: 62.5%;
+	-webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+	scroll-behavior: smooth;
+}
+body {
+	overflow-x: hidden;
+	font-family: "ryo-gothic-plusn", "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, 游ゴシック体, メイリオ, sans-serif;
+	font-weight: 400;
+	line-height: 1;
+}
+li {
+	list-style-type: none;
+	zoom: normal;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: top;
+	border-style: none;
+}
+.clearfix {zoom:1;}
+.clearfix:after{
+	content: " ";
+	display: block;
+	visibility: hidden;
+	clear: both;
+	height: 0.1px;
+	font-size: 0.1em;
+	line-height: 0;
+}
+.flex {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+}
+a{
+	text-decoration: none;
+	color: #333;
+	-moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+  -webkit-user-select: none; /* Chrome, Safari, and Opera */
+  -webkit-touch-callout: none; /* Disable Android and iOS callouts*/
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+  tap-highlight-color: rgba(0,0,0,0);
+}
+address { font-style: normal; }
+.center{ text-align: center; }
+.right{ text-align: right; }
+.red{ color: #ff0000; }
+
+.forSP { display: none; }
+.forPC { display: none; }
