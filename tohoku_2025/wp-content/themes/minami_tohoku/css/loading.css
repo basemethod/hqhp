@@ -1,0 +1,72 @@
+/***************************************
+- loading
+***************************************/
+#loading {
+  width: 100vw;
+  height: 100vh;
+  transition: all 1s;
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: 999999;
+}
+#loading .contents {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+#loading .contents .logo {
+  width: 80%;
+  margin: 0 auto 4px;
+  filter: grayscale(1) opacity(0.6);
+}
+
+.text-sequence-loader-preview {
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.018em;
+  color: #aaa;
+  white-space: nowrap;
+}
+.text-sequence-loader-preview span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(15px) scale(0.5) rotate(15deg); /* Initial state */
+  animation-name: text-appear-animation;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  /* animation-delay is set by JS for each span */
+}
+.text-sequence-loader-preview span:nth-child(1) { animation-delay: 0.00s; }
+.text-sequence-loader-preview span:nth-child(2) { animation-delay: 0.10s; }
+.text-sequence-loader-preview span:nth-child(3) { animation-delay: 0.20s; }
+.text-sequence-loader-preview span:nth-child(4) { animation-delay: 0.30s; }
+.text-sequence-loader-preview span:nth-child(5) { animation-delay: 0.40s; }
+.text-sequence-loader-preview span:nth-child(6) { animation-delay: 0.50s; }
+.text-sequence-loader-preview span:nth-child(7) { animation-delay: 0.60s; }
+.text-sequence-loader-preview span:nth-child(8) { animation-delay: 0.70s; }
+.text-sequence-loader-preview span:nth-child(9) { animation-delay: 0.80s; }
+.text-sequence-loader-preview span:nth-child(10) { animation-delay: 0.90s; }
+
+/* Define @keyframes text-appear-animation if not already defined or if it needs to be static in CSS output */
+@keyframes text-appear-animation {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+}
+
+.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
