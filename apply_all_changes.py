@@ -1,75 +1,54 @@
-import os
-import csv
 import re
+import os
 
-root_dir = 'tohoku_2025'
-img_new_path_prefix = 'wp-content/uploads/new_assets/'
-
-# データの読み込み
-def load_csv(filename):
-    data = []
-    with open(filename, 'r', encoding='utf-8-sig') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            clean_row = {k.strip(): v.strip() for k, v in row.items() if k}
-            data.append(clean_row)
-    return data
-
-text_data = load_csv('text.csv')
-image_data = load_csv('imageList.csv')
-
-def get_filename(url):
-    return url.split('/')[-1]
-
-# --- 1. 事業内容ページ ---
-def update_works():
-    file_path = os.path.join(root_dir, 'works/index.html')
-    if not os.path.exists(file_path): return
-    with open(file_path, 'r', encoding='utf-8') as f:
-        html_str = f.read()
-
-    template_match = re.search(r'(<li>.*?<div class="cover flex">.*?</li>)', html_str, re.DOTALL)
-    if template_match:
-        template_li = template_match.group(1)
-        items = []
-        for i in range(1, 11):
-            sec = f"事業{i}"
-            name = next((r['テキスト'] for r in text_data if r['ページ'] == '事業内容' and r['セクション'] == sec and r['位置'] == '事業名'), None)
-            txt = next((r['テキスト'] for r in text_data if r['ページ'] == '事業内容' and r['セクション'] == sec and r['位置'] == 'テキスト'), None)
-            img_row = next((r for r in image_data if r['ページ'] == '事業内容' and name in r['セクション']), None)
-            if name and txt:
-                items.append({'name': name, 'text': txt, 'img': '../' + img_new_path_prefix + get_filename(img_row['画像']) if img_row else ""})
-
-        new_html_list = []
-        for i, item in enumerate(items):
-            li = re.sub(r'<div class="num mincho">[^<]+</div>', f'<div class="num mincho">{i+1:02d}</div>', template_li)
-            li = re.sub(r'<h3[^>]*>[^<]+</h3>', f'<h3>{item["name"]}</h3>', li)
-            li = re.sub(r'(<p[^>]*>).*?(</p>)', rf'\1{item["text"]}\2', li, flags=re.DOTALL)
-            if item['img']: li = re.sub(r'(<img src=")[^"]+(")', rf'\1{item["img"]}\2', li)
-            new_html_list.append("    " + li)
+def apply_all_changes():
+    file_path = 'tohoku_2025/index.html'
+    if not os.path.exists(file_path):
+        return
         
-        new_html = "\n".join(new_html_list)
-        html_str = re.sub(r'(<ul id="worksList"[^>]*>).*?(</ul>)', rf'\1\n{new_html}\n  \2', html_str, flags=re.DOTALL)
-        with open(file_path, 'w', encoding='utf-8') as f: f.write(html_str)
-
-# --- 2. 採用情報ページ ---
-def update_recruit():
-    file_path = os.path.join(root_dir, 'recruit/index.html')
-    if not os.path.exists(file_path): return
     with open(file_path, 'r', encoding='utf-8') as f:
-        html_str = f.read()
+        content = f.read()
 
-    # タイトルとテキスト
-    title = next((r['テキスト'] for r in text_data if r['ページ'] == '採用情報' and r['セクション'] == 'トップリード' and r['位置'] == 'タイトル'), None)
-    txt = next((r['テキスト'] for r in text_data if r['ページ'] == '採用情報' and r['セクション'] == 'トップリード' and r['位置'] == 'テキスト'), None)
-    if title: html_str = re.sub(r'(<div class="text">.*?<h3[^>]*>).*?(</h3>)', rf'\1{title}\2', html_str, flags=re.DOTALL)
-    if txt: html_str = re.sub(r'(<div class="text">.*?<h3[^>]*>.*?</h3>\s*<p[^>]*>).*?(</p>)', rf'\1{txt}\2', html_str, flags=re.DOTALL)
+    # 1. Replace "南東北事業本部"
+    content = content.replace('南東北事業本部', '〇〇事業本部')
 
-    # インタビュー画像削除 (特定のセクションのみ)
-    html_str = re.sub(r'(<ul id="interviewList".*?)(<div class="image">.*?<img[^>]*>.*?</div>)', r'\1<!-- Image removed -->', html_str, flags=re.DOTALL)
+    # 2. Mask address and phone
+    content = content.replace('980-0014', '〇〇〇-〇〇〇〇')
+    # Use more flexible regex for address and phone
+    content = re.sub(r'宮城県仙台市青葉区本町2丁目19-21\s+CST共立ビル4階', '〇〇県〇〇市〇〇区〇〇町〇丁目〇-〇  〇〇〇〇〇〇階', content)
+    content = content.replace('022-398-4975', '000-000-0000')
+
+    # 3. Handle specific links and images
+    # We want to find the <li> containing these specific URLs or the previously inserted data URIs
     
-    with open(file_path, 'w', encoding='utf-8') as f: f.write(html_str)
+    # talent-clip -> 外部リンク1
+    # i-choice-workers -> 外部リンク2
+    
+    # Since they might have been partially modified, let's look for the <li> structure in the sponsor list
+    # Specifically targeting the items that had "採用情報" and "採用サイト"
+    
+    # We'll replace the entire <li> content for these two
+    content = re.sub(
+        r'<li>\s*(?:<a[^>]*href="https://www\.talent-clip\.jp/workers/jobs"[^>]*>)?\s*<img[^>]*alt="(?:採用情報|外部リンク1)"[^>]*>\s*(?:</a>)?\s*</li>',
+        r'<li><div style="border: 3px solid white; color: white; padding: 10px; text-align: center; min-width: 100px;">外部リンク1</div></li>',
+        content, flags=re.DOTALL
+    )
+    
+    content = re.sub(
+        r'<li>\s*(?:<a[^>]*href="https://tohoku\.jwcc\.coop/i-choice-workers/"[^>]*>)?\s*<img[^>]*alt="(?:採用サイト|外部リンク2)"[^>]*>\s*(?:</a>)?\s*</li>',
+        r'<li><div style="border: 3px solid white; color: white; padding: 10px; text-align: center; min-width: 100px;">外部リンク2</div></li>',
+        content, flags=re.DOTALL
+    )
 
-update_works()
-update_recruit()
-print("All major pages updated successfully.")
+    # Also handle the recruit block in main if it has these links
+    content = re.sub(
+        r'<a[^>]*href="https://tohoku\.jwcc\.coop/i-choice-workers/"[^>]*>.*?</a>',
+        r'<span style="border: 3px solid white; color: white; padding: 5px 10px; display: inline-block;">外部リンク2</span>',
+        content, flags=re.DOTALL
+    )
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(content)
+
+if __name__ == "__main__":
+    apply_all_changes()
